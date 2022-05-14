@@ -1,0 +1,55 @@
+{
+  "sourceRoot": "packages/fastapi/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/fastapi/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/fastapi"],
+      "options": {
+        "jestConfig": "packages/fastapi/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/fastapi",
+        "tsConfig": "packages/fastapi/tsconfig.lib.json",
+        "packageJson": "packages/fastapi/package.json",
+        "main": "packages/fastapi/src/index.ts",
+        "assets": [
+          "packages/fastapi/*.md",
+          {
+            "input": "./packages/fastapi/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/fastapi/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/fastapi",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/fastapi",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}
